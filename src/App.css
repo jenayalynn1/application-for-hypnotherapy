@@ -2,9 +2,9 @@
 
 .page {
   min-height: 100vh;
-  background-color: #f5efe7;
   color: #111827;
 }
+
 
 .quiz-container {
   max-width: 960px;
@@ -222,4 +222,81 @@
   text-align: left !important;
   margin-left: 1.25rem;
   list-style-type: disc;
+}
+/* Make the whole page center the quiz card */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #f7efe6; /* your beige */
+}
+
+/* Outer container for the app */
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;   /* center left–right */
+  align-items: flex-start;   /* top aligned, not dead center vertically */
+  padding: 2rem 1rem;
+}
+
+/* The actual card with quiz content */
+.quiz-card {
+  max-width: 6540x;          /* keeps it from getting too wide */
+  width: 80%;
+  margin: 0 auto;
+}
+
+/* Center column for the quiz */
+.quiz-card {
+  max-width: 650px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Portrait alignment + sizing */
+.portrait-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.portrait-img {
+  width: 220px;
+  height: auto;
+  border-radius: 9999px;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f7efe6;
+}
+
+.app-root {
+  width: 100%;
+  max-width: 100%;
+}
+
+.page {
+  width: 100%;
+  max-width: 100%;
+}
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f7efe6 !important;  /* force beige everywhere */
+}
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: hotpink !important;
+}
+/* Reset global text color within the quiz app */
+.app-root,
+.app-root * {
+  color: #111827 !important;   /* dark slate */
 }
