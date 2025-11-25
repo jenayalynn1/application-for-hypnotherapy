@@ -1231,9 +1231,12 @@ const MultiSectionApplication: React.FC = () => {
   );
 };
 
+// <-- one } somewhere ABOVE here that closes the MultiSectionApplication component
+
 function submitToGoogleSheet(payload: SheetPayload) {
   // Wire this to your Apps Script / backend when you're ready.
   console.log("Submitting full application:", payload);
 }
 
 export default MultiSectionApplication;
+
