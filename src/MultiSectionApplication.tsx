@@ -404,45 +404,65 @@ const MultiSectionApplication: React.FC = () => {
     };
 
     return (
-     {/* Section tabs styled like the Inhale/Exhale buttons */}
-<div className="section-tabs">
-  <button
-    type="button"
-    className={
-      "section-tab" + (section === 1 ? " section-tab--active" : "")
-    }
-    onClick={() => setSection(1)}
-  >
-    Section 1: Framework & Consent
-  </button>
+  <>
+    {/* Global header stays above this */}
 
-  <button
-    type="button"
-    className={
-      "section-tab" + (section === 2 ? " section-tab--active" : "")
-    }
-    onClick={() => setSection(2)}
-  >
-    Section 2: Support & Boundaries
-  </button>
+    {/* Section tabs styled like the Inhale / Exhale buttons */}
+    <div className="section-tabs">
+      <button
+        type="button"
+        className={
+          "section-tab" + (section === 1 ? " section-tab--active" : "")
+        }
+        onClick={() => setSection(1)}
+      >
+        Section 1: Framework & Consent
+      </button>
 
-  <button
-    type="button"
-    className={
-      "section-tab" + (section === 3 ? " section-tab--active" : "")
-    }
-    onClick={() => setSection(3)}
-  >
-    The 🐦‍🔥 Flight Direction Quiz 🔥
-  </button>
+      <button
+        type="button"
+        className={
+          "section-tab" + (section === 2 ? " section-tab--active" : "")
+        }
+        onClick={() => setSection(2)}
+      >
+        Section 2: Support & Boundaries
+      </button>
 
-  <button
-    type="button"
-    className={
-      "section-tab" + (section === 4 ? " section-tab--active" : "")
-    }
-    onClick={() => setSection(4)}
-  >
+      <button
+        type="button"
+        className={
+          "section-tab" + (section === 3 ? " section-tab--active" : "")
+        }
+        onClick={() => setSection(3)}
+      >
+        The 🐦‍🔥 Flight Direction Quiz 🔥
+      </button>
+
+      <button
+        type="button"
+        className={
+          "section-tab" + (section === 4 ? " section-tab--active" : "")
+        }
+        onClick={() => setSection(4)}
+      >
+        Section 4: Readiness & Commitment
+      </button>
+
+      <button
+        type="button"
+        className={
+          "section-tab" + (section === 5 ? " section-tab--active" : "")
+        }
+        onClick={() => setSection(5)}
+      >
+        Section 5: Personal Details
+      </button>
+    </div>
+
+    {/* the rest of your JSX for the current section below */}
+  </>
+);
 
   const renderSection1 = () => (
     <div className="card">
