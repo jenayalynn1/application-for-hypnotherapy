@@ -13,7 +13,7 @@ const App: React.FC = () => {
             alt="Jenayalynn Riojas, CCHt"
             className="portrait"
           />
-          <h1 className="title">The Three Contradictions Quiz</h1>
+          <h1 className="title">♡ My Application for Hypnotherapy 🌀</h1>
           <p className="subtitle">
             For each statement, select the one that feels most true for you
             right now.
