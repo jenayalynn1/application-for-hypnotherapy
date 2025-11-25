@@ -1,18 +1,15 @@
-// src/data.ts
-// Temporary data + types for The Three Contradictions Quiz.
-// This is a placeholder so the app compiles and runs.
-// Replace QUESTIONS and FLIGHT_PROFILES with your real content when you're ready.
+// Quiz data and scoring logic for The Three Contradictions Quiz
 
-export type Trait = "being" | "flowing" | "trusting";
+export type Trait = "Being" | "Flowing" | "Trusting";
 
-export interface QuestionOption {
+export interface Option {
   text: string;
   trait: Trait;
 }
 
 export interface Question {
   text: string;
-  options: QuestionOption[];
+  options: Option[];
 }
 
 export interface AnswerRecord {
@@ -52,190 +49,397 @@ export interface SheetPayload {
   trustingScore: number;
 }
 
-// 🔸 PLACEHOLDER QUESTIONS 🔸
-// Replace these with your real Three Contradictions questions later.
-// Structure MUST stay: text + options with trait = "being" | "flowing" | "trusting".
 export const QUESTIONS: Question[] = [
   {
-    text:
-      "When life feels challenging, which experience feels most familiar to you?",
+    text: "When something goes wrong",
     options: [
       {
-        text: "I question who I am and whether I’m enough.",
-        trait: "being",
+        text: "I think about it a lot and wonder what it means about me.",
+        trait: "Being",
       },
       {
-        text: "I try to adjust, fix, or do more so things feel smoother.",
-        trait: "flowing",
+        text: "I hurry to fix it or make everyone feel better.",
+        trait: "Flowing",
       },
       {
-        text: "I scan for what might go wrong and try to stay prepared.",
-        trait: "trusting",
+        text: "I plan what to do next so it won’t happen again.",
+        trait: "Trusting",
       },
     ],
   },
   {
-    text: "When you imagine feeling truly safe in yourself, what stands out?",
+    text: "When someone is upset with me",
     options: [
       {
-        text: "Knowing deeply that who I am is already worthy.",
-        trait: "being",
+        text: "I explain what I meant and take charge to fix it.",
+        trait: "Trusting",
       },
       {
-        text: "Feeling like my actions and relationships move with ease.",
-        trait: "flowing",
+        text: "I go over what I said and worry how it sounded.",
+        trait: "Being",
       },
       {
-        text: "Feeling like I can rest without waiting for the next problem.",
-        trait: "trusting",
+        text: "I say sorry fast and try to make peace.",
+        trait: "Flowing",
       },
     ],
   },
   {
-    text: "When you feel stuck, what do you most often wrestle with?",
+    text: "When I feel nervous or off balance",
     options: [
       {
-        text: "Feeling like I’m not allowed to be my full self.",
-        trait: "being",
+        text: "I stay busy helping others.",
+        trait: "Flowing",
       },
       {
-        text: "Feeling like I have to keep managing everyone and everything.",
-        trait: "flowing",
+        text: "I clean up or plan to feel in control again.",
+        trait: "Trusting",
       },
       {
-        text: "Feeling like if I let go, everything will fall apart.",
-        trait: "trusting",
+        text: "I think about every reason I might feel this way.",
+        trait: "Being",
+      },
+    ],
+  },
+  {
+    text: "When I make a mistake",
+    options: [
+      {
+        text: "I feel bad and think hard about why it happened.",
+        trait: "Being",
+      },
+      {
+        text: "I try even harder to make up for it.",
+        trait: "Flowing",
+      },
+      {
+        text: "I set new rules so it won’t happen again.",
+        trait: "Trusting",
+      },
+    ],
+  },
+  {
+    text: "When someone lets me down",
+    options: [
+      {
+        text: "I make new rules or step back to stay safe.",
+        trait: "Trusting",
+      },
+      {
+        text: "I wonder why they did that.",
+        trait: "Being",
+      },
+      {
+        text: "I forgive them and do the extra work myself.",
+        trait: "Flowing",
+      },
+    ],
+  },
+  {
+    text: "When life slows down",
+    options: [
+      {
+        text: "I look for someone or something that still needs me.",
+        trait: "Flowing",
+      },
+      {
+        text: "I get restless and find something to do.",
+        trait: "Trusting",
+      },
+      {
+        text: "I start thinking deeply and lose track of time.",
+        trait: "Being",
+      },
+    ],
+  },
+  {
+    text: "When people don’t understand me",
+    options: [
+      {
+        text: "I wonder what I did wrong.",
+        trait: "Being",
+      },
+      {
+        text: "I explain myself again and again to make peace.",
+        trait: "Flowing",
+      },
+      {
+        text: "I set things straight so it won’t happen next time.",
+        trait: "Trusting",
+      },
+    ],
+  },
+  {
+    text: "When there is conflict",
+    options: [
+      {
+        text: "I set clear limits to stop the fight.",
+        trait: "Trusting",
+      },
+      {
+        text: "I try to understand everyone’s side first.",
+        trait: "Being",
+      },
+      {
+        text: "I make peace, even if it costs me.",
+        trait: "Flowing",
+      },
+    ],
+  },
+  {
+    text: "When I succeed at something",
+    options: [
+      {
+        text: "I think about how to use it to help others.",
+        trait: "Flowing",
+      },
+      {
+        text: "I make a new goal to keep going.",
+        trait: "Trusting",
+      },
+      {
+        text: "I ask myself what this says about me.",
+        trait: "Being",
+      },
+    ],
+  },
+  {
+    text: "When change is coming",
+    options: [
+      {
+        text: "I look for the lesson in it.",
+        trait: "Being",
+      },
+      {
+        text: "I go along and help others feel okay.",
+        trait: "Flowing",
+      },
+      {
+        text: "I plan ahead for what might happen.",
+        trait: "Trusting",
+      },
+    ],
+  },
+  {
+    text: "My thoughts when I’m stressed",
+    options: [
+      {
+        text: "“I need to take control right now.”",
+        trait: "Trusting",
+      },
+      {
+        text: "“Why am I like this? I should know better.”",
+        trait: "Being",
+      },
+      {
+        text: "“I can fix this if I keep trying.”",
+        trait: "Flowing",
+      },
+    ],
+  },
+  {
+    text: "Deep down, when things are hard",
+    options: [
+      {
+        text: "I feel worried until everyone else is okay.",
+        trait: "Flowing",
+      },
+      {
+        text: "I feel tight and under pressure to hold things together.",
+        trait: "Trusting",
+      },
+      {
+        text: "I feel sad or ashamed I can’t fix it.",
+        trait: "Being",
       },
     ],
   },
 ];
 
-// 🔸 Simple helper: count traits in the answers 🔸
-function countTrait(records: AnswerRecord[], target: Trait): number {
-  return records.reduce(
-    (sum, rec) => (rec.trait === target ? sum + 1 : sum),
-    0
-  );
-}
-
-// 🔸 Compute a simple “flight direction” code from trait counts 🔸
-// This is a placeholder logic — you can replace with your original mapping later.
-export function computeFlightDirection(records: AnswerRecord[]): {
-  code: string;
-  being: number;
-  flowing: number;
-  trusting: number;
-} {
-  const being = countTrait(records, "being");
-  const flowing = countTrait(records, "flowing");
-  const trusting = countTrait(records, "trusting");
-
-  // Find which trait(s) are strongest
-  const max = Math.max(being, flowing, trusting);
-  const active: Trait[] = [];
-  if (being === max) active.push("being");
-  if (flowing === max) active.push("flowing");
-  if (trusting === max) active.push("trusting");
-
-  // Build a code like "B", "F", "T", "BF", "BT", "FT", or "BFT"
-  const code =
-    active
-      .map((t) =>
-        t === "being" ? "B" : t === "flowing" ? "F" : "T"
-      )
-      .join("") || "NONE";
-
-  return { code, being, flowing, trusting };
-}
-
-// 🔸 Minimal placeholder profiles for each code 🔸
-// Replace coreMovement, alignedPractices, aspireTo, and mantra with your real text later.
 export const FLIGHT_PROFILES: Record<string, FlightProfile> = {
-  B: {
+  "Being > Flowing": {
     coreMovement:
-      "Your growth leans toward Being — remembering who you are beneath roles, expectations, and pressure.",
+      "Your flight direction is toward Being and Flowing. You grow by understanding that simply being is an honest expression of your identity. When you flow with inspiration instead of forcing outcomes, being yourself becomes more natural.",
     alignedPractices: [
-      "Spend time naming what is true about you that does not depend on performance.",
-      "Stay close to environments where your presence feels welcomed, not earned.",
+      "Lean into choices that you are inspired to make.",
+      "Express yourself with simplicity instead of overthinking.",
+      "Choose small areas of your life to go with the flow.",
+      "Before you try doing, allow yourself to just be.",
     ],
     aspireTo:
-      "Let your identity feel less conditional and more like a steady inner presence.",
-    mantra: "I’m allowed to exist as I am, even before I improve.",
+      "A steady, relaxed openness that allows clarity and ease to work together.",
+    mantra: "“My truth moves naturally when I let myself be.”",
   },
-  F: {
+
+  "Being > Trusting": {
     coreMovement:
-      "Your growth leans toward Flowing — letting action come from alignment instead of pressure.",
+      "Your flight direction is toward Being and Trusting. Your growth lies in first trusting yourself to simply be who you are. Support becomes easier to receive when you’re rooted in who you are.",
     alignedPractices: [
-      "Notice where you push yourself to move faster than your nervous system can hold.",
-      "Experiment with doing less while staying more honest in what you do.",
+      "Embrace moments that confirm your sense of self.",
+      "Invite small experiences of safe connection.",
+      "Choose trust at a pace that feels grounded and real.",
+      "Let yourself rely on others one step at a time.",
     ],
-    aspireTo:
-      "Let movement feel like an honest extension of your truth, not a constant performance.",
-    mantra: "I move at the pace of my real capacity.",
+    aspireTo: "Grounded openness that doesn’t rush or force itself.",
+    mantra: "“When I stand in my truth, trust grows naturally.”",
   },
-  T: {
+
+  "Trusting > Being": {
     coreMovement:
-      "Your growth leans toward Trusting — loosening your grip on control and hypervigilance.",
+      "Your flight direction is toward Trusting and Being. Your growth lies in opening yourself to experiences, and letting that openness help you understand who you’re becoming. Your identity grows from the moments you allow in.",
     alignedPractices: [
-      "Let small, low-stakes parts of life be imperfect and unresolved.",
-      "Practice naming what is already working instead of scanning only for threat.",
+      "Lean into curiosity about what feels true for you.",
+      "Invite new experiences without pressure to commit.",
+      "Choose reflection after exploration, not before.",
+      "Let identity form from honest lived moments.",
     ],
     aspireTo:
-      "Let trust feel like a gentle resting place inside, not a test you have to pass.",
-    mantra: "I do not have to guard everything all the time.",
+      "Gentle courage that welcomes new information about yourself.",
+    mantra: "“I discover myself through what I let in.”",
   },
-  BF: {
+
+  "Trusting > Flowing": {
     coreMovement:
-      "You are learning to let your sense of self (Being) and your expression (Flowing) support each other.",
+      "Your flight direction is toward Trusting and Flowing. Your growth is in letting yourself trust the moment, and allowing your energy to soften and move more freely. Ease shows up when you stop bracing and follow what feels aligned.",
     alignedPractices: [
-      "Let your actions come from a more honest sense of who you are.",
-      "Soften the urge to perform for safety, and move from authenticity instead.",
+      "Trust your instincts when something feels right.",
+      "Invite small moments of ease throughout your day.",
+      "Choose expression without worrying about perfection.",
+      "Let trust support the pace of your movement.",
     ],
-    aspireTo:
-      "Let your real self and your visible actions feel more like the same person.",
-    mantra: "My presence and my expression belong to the same self.",
+    aspireTo: "Calm confidence that lets rhythm develop naturally.",
+    mantra: "“Ease finds me when I trust the moment I’m in.”",
   },
-  BT: {
+
+  "Flowing > Being": {
     coreMovement:
-      "You are learning to let your identity feel safe enough that trust does not require constant proof.",
+      "Your flight direction is toward Flowing and Being. Your growth lies in sensing your way forward and then letting that rhythm help you understand yourself more clearly. Your identity settles naturally when you listen to what feels true.",
     alignedPractices: [
-      "Gently question old stories that say you are only safe when you are perfect.",
-      "Let your worth feel less tied to how well you prevent problems.",
+      "Lean into the movements and choices that inspire you.",
+      "Invite stillness afterward to understand their meaning.",
+      "Choose identity from experiences, not expectations.",
+      "Let your rhythm guide what becomes real for you.",
     ],
-    aspireTo:
-      "Let your sense of self feel held, even when life is uncertain.",
-    mantra: "I can be who I am without watching everything at once.",
+    aspireTo: "Attuned presence that listens inwardly.",
+    mantra: "“My rhythm reveals who I am.”",
   },
-  FT: {
+
+  "Flowing > Trusting": {
     coreMovement:
-      "You are learning to let your movement and your trust work together, instead of living in constant management mode.",
+      "Your flight direction is toward Flowing and Trusting. Your growth lies in following the rhythm of your own movement, and allowing trust to grow once something feels aligned in your body. You open up at the pace that fits your inner rhythm.",
     alignedPractices: [
-      "Let some actions be guided by curiosity instead of fear.",
-      "Notice where you over-manage and gently step back for a breath.",
+      "Lean into embodied decisions that feel steady.",
+      "Invite support after you feel the internal yes.",
+      "Choose connection that respects your natural pace.",
+      "Let trust emerge from your felt sense, not pressure.",
     ],
-    aspireTo:
-      "Let life move through you with less gripping and more partnership.",
-    mantra: "I can move and still let go a little.",
+    aspireTo: "Intuitive openness guided by bodily alignment.",
+    mantra: "“I trust what aligns with my rhythm.”",
   },
-  BFT: {
+
+  "Being = Flowing": {
     coreMovement:
-      "All three contradictions are active — Being, Flowing, and Trusting are all in the mix.",
+      "Your flight direction balances Being and Flowing. You feel most like yourself when your clarity and your ease work together. Who you are and how you move don’t need to be separate steps.",
     alignedPractices: [
-      "Choose one small area of life to practice safety in who you are, how you move, and how you let go.",
-      "Treat this as a layered journey, not something to fix in one leap.",
+      "Lean into decisions that feel both true and light.",
+      "Invite simple expression without rehearsing it.",
+      "Choose a pace that honors your energy.",
+      "Let authenticity guide your presence and movement equally.",
     ],
-    aspireTo:
-      "Let the different parts of you learn to work together instead of competing.",
-    mantra: "All of my movements are welcome in this process.",
+    aspireTo: "Relaxed alignment between identity and expression.",
+    mantra: "“I move as myself without effort.”",
   },
-  NONE: {
+
+  "Being = Trusting": {
     coreMovement:
-      "Not enough answers were recorded to map a clear flight direction yet.",
+      "Your flight direction balances Being and Trusting. Your self-awareness supports your openness, and your openness strengthens your sense of self. Trust becomes simpler when it grows from your own clarity.",
     alignedPractices: [
-      "Come back to the quiz when you have the capacity to reflect more fully.",
+      "Lean into clarity that comes from honest reflection.",
+      "Invite connection slowly and meaningfully.",
+      "Choose presence instead of prediction.",
+      "Let trust build from what feels internally true.",
+    ],
+    aspireTo: "Grounded receptivity.",
+    mantra: "“I trust in ways that honor who I am.”",
+  },
+
+  "Flowing = Trusting": {
+    coreMovement:
+      "Your flight direction balances Flowing and Trusting. When you trust the moment, your expression becomes easier and more natural. You stay open while letting your energy move in a way that feels right for you.",
+    alignedPractices: [
+      "Lean into reciprocity in relationships.",
+      "Invite softness instead of guarding.",
+      "Choose expression without overthinking.",
+      "Let trust give your movement its rhythm.",
+    ],
+    aspireTo: "Relaxed receptivity with gentle momentum.",
+    mantra: "“I express myself more easily when I trust where I am.”",
+  },
+
+  "Being = Flowing = Trusting": {
+    coreMovement:
+      "Your flight direction holds Being, Flowing, and Trusting together. All three movements are active in you, which means you carry identity, ease, and openness at the same time. Your work is learning which one needs to lead in each moment without abandoning the others.",
+    alignedPractices: [
+      "Notice which movement is speaking the loudest—Being, Flowing, or Trusting—before you act.",
+      "Invite small experiments where one movement leads and the other two support.",
+      "Reflect afterward: “Did I let one part run the show, or did they work together?”",
+      "Let yourself shift roles gently instead of trying to be everything at once.",
     ],
     aspireTo:
-      "Let this be a starting point, not a verdict on who you are.",
-    mantra: "I can return to this when I’m ready.",
+      "Integrated curiosity — willing to rotate leadership among your inner movements while staying whole.",
+    mantra:
+      "“All of my movements belong; I choose which one leads right now.”",
   },
 };
+
+export function computeFlightDirection(
+  answers: AnswerRecord[]
+): { code: string; being: number; flowing: number; trusting: number } {
+  let being = 0;
+  let flowing = 0;
+  let trusting = 0;
+
+  answers.forEach((a) => {
+    if (a.trait === "Being") being++;
+    if (a.trait === "Flowing") flowing++;
+    if (a.trait === "Trusting") trusting++;
+  });
+
+  const scores: Record<Trait, number> = {
+    Being: being,
+    Flowing: flowing,
+    Trusting: trusting,
+  };
+  const traits: Trait[] = ["Being", "Flowing", "Trusting"];
+
+  const max = Math.max(being, flowing, trusting);
+  const topTraits = traits.filter((t) => scores[t] === max);
+
+  // Triple tie
+  if (topTraits.length === 3) {
+    return { code: "Being = Flowing = Trusting", being, flowing, trusting };
+  }
+
+  // Double tie → use "=" ordering
+  if (topTraits.length === 2) {
+    const sorted = [...topTraits].sort(); // alphabetical
+    const [a, b] = sorted;
+    const code = `${a} = ${b}`;
+    return { code, being, flowing, trusting };
+  }
+
+  // One clear leader → ">" code
+  const primary = topTraits[0];
+  const remaining = traits.filter((t) => t !== primary);
+  const secondMax = Math.max(scores[remaining[0]], scores[remaining[1]]);
+  const secondCandidates = remaining.filter((t) => scores[t] === secondMax);
+
+  const order: Trait[] = ["Being", "Flowing", "Trusting"];
+  const secondary =
+    secondCandidates.length === 1
+      ? secondCandidates[0]
+      : (order.find((t) => secondCandidates.includes(t)) as Trait);
+
+  const code = `${primary} > ${secondary}`;
+  return { code, being, flowing, trusting };
+}
