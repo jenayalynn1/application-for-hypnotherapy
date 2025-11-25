@@ -154,7 +154,7 @@ const MultiSectionApplication: React.FC = () => {
       case 3: {
         for (let i = 0; i < QUESTIONS.length; i++) {
           if (!quizAnswers[i]) {
-            return "Please answer all questions in the Inner Movements quiz.";
+            return "Please answer all questions in The Flight Direction Quiz.";
           }
         }
         return null;
