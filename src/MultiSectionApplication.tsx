@@ -22,10 +22,19 @@ interface ApplicationFormData {
   membershipPreference: string;
   financialNotes: string;
 
-  // SECTION 5 — Readiness + contact
-  email: string;
-  readinessNotes: string;
-}
+  // SECTION 5 — Practical Demographics
+referredYesNo: "yes" | "no" | "";
+referredBy: string;
+
+phoneNumber: string;
+firstName: string;
+lastName: string;
+birthdate: string;
+
+addressAs: "she/her" | "he/him" | "they" | "";
+
+zipCode: string;
+
 
 const initialForm: ApplicationFormData = {
   metaphysicalConsent: false,
@@ -381,53 +390,74 @@ const MultiSectionApplication: React.FC = () => {
   );
 
   const renderSection5 = () => (
-    <div className="card">
-      <h2 className="section-title">
-        Section 5 — Readiness, Timing, and Contact
-      </h2>
+  <div className="card">
+    <h2 className="results-title">Section 5 — Practical Demographics</h2>
 
-      <label className="field">
-        <span>Email *</span>
-        <input
-          type="email"
-          value={form.email}
-          onChange={(e) =>
-            setForm((prev) => ({ ...prev, email: e.target.value }))
-          }
-          required
-        />
-      </label>
-
-      <label className="field">
-        <span>
-          In your own words, why does <em>now</em> feel like the right time to
-          begin this work?
-        </span>
-        <textarea
-          value={form.readinessNotes}
-          onChange={(e) =>
-            setForm((prev) => ({
-              ...prev,
-              readinessNotes: e.target.value,
-            }))
-          }
-        />
-      </label>
-
-      <div className="button-row">
-        <button className="secondary-button" onClick={prevSection}>
-          ← Back
-        </button>
-        <button
-          className="primary-button"
-          disabled={!form.email}
-          onClick={handleSubmit}
-        >
-          Submit Application ✉️
-        </button>
+    {/* Were you referred to me? */}
+    <p className="results-summary">Were you referred to me?</p>
+    <div className="option-row" onClick={() => setForm({ ...form, referredYesNo: "yes" })}>
+      <div className={`radio ${form.referredYesNo === "yes" ? "radio-selected" : ""}`}>
+        {form.referredYesNo === "yes" && <div className="radio-dot" />}
       </div>
+      <div className="option-text">Yes</div>
     </div>
-  );
+
+    <div className="option-row" onClick={() => setForm({ ...form, referredYesNo: "no" })}>
+      <div className={`radio ${form.referredYesNo === "no" ? "radio-selected" : ""}`}>
+        {form.referredYesNo === "no" && <div className="radio-dot" />}
+      </div>
+      <div className="option-text">No</div>
+    </div>
+
+    {form.referredYesNo === "yes" && (
+      <input
+        type="text"
+        className="input"
+        placeholder="If so, who?"
+        value={form.referredBy}
+        onChange={(e) => setForm({ ...form, referredBy: e.target.value })}
+        style={{ marginTop: "1rem" }}
+      />
+    )}
+
+    {/* Phone */}
+    <p className="results-summary" style={{ marginTop: "1.5rem" }}>Phone Number *</p>
+    <input
+      type="text"
+      className="input"
+      value={form.phoneNumber}
+      placeholder="Phone Number"
+      onChange={(e) => setForm({ ...form, phoneNumber: e.target.value })}
+    />
+
+    {/* First Name */}
+    <p className="results-summary" style={{ marginTop: "1.5rem" }}>First Name *</p>
+    <input
+      type="text"
+      className="input"
+      value={form.firstName}
+      placeholder="First Name"
+      onChange={(e) => setForm({ ...form, firstName: e.target.value })}
+    />
+
+    {/* Last Name */}
+    <p className="results-summary" style={{ marginTop: "1.5rem" }}>Last Name *</p>
+    <input
+      type="text"
+      className="input"
+      value={form.lastName}
+      placeholder="Last Name"
+      onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+    />
+
+    {/* Birthdate */}
+    <p className="results-summary" style={{ marginTop: "1.5rem" }}>Birthdate *</p>
+    <input
+      type="text"
+      className="input"
+      value={form.birthdate}
+      placeholder="January 7, 2019"
+      onChange={(e) => setForm({ ...
 
   // ---------- MAIN RENDER ----------
 
