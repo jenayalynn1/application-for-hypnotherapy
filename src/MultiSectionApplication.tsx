@@ -8,33 +8,30 @@ interface ApplicationFormData {
   // SECTION 1 — Framework & Consent
   metaphysicalConsent: boolean;
 
-  // SECTION 2 — Support / Boundaries / Self-image (summary for now)
+  // SECTION 2 — Support / Boundaries / Self-Image
   q1DamagingExperience: string;
   q2BeforeSelf: string;
   q3NowSelf: string;
 
-  // SECTION 3 — Quiz has its own state (we don’t store answers here)
-
-  // SECTION 4 — History / Finances / Membership preference
+  // SECTION 4 — History / Finances / Membership + Readiness
   therapyHistory: string;
   mentalHealthSupports: string;
   incomeRange: string;
   membershipPreference: string;
   financialNotes: string;
+  email: string;
+  readinessNotes: string;
 
   // SECTION 5 — Practical Demographics
-referredYesNo: "yes" | "no" | "";
-referredBy: string;
-
-phoneNumber: string;
-firstName: string;
-lastName: string;
-birthdate: string;
-
-addressAs: "she/her" | "he/him" | "they" | "";
-
-zipCode: string;
-
+  referredYesNo: "yes" | "no" | "";
+  referredBy: string;
+  phoneNumber: string;
+  firstName: string;
+  lastName: string;
+  birthdate: string;
+  addressAs: "she/her" | "he/him" | "they" | "";
+  zipCode: string;
+}
 
 const initialForm: ApplicationFormData = {
   metaphysicalConsent: false,
@@ -48,6 +45,14 @@ const initialForm: ApplicationFormData = {
   financialNotes: "",
   email: "",
   readinessNotes: "",
+  referredYesNo: "",
+  referredBy: "",
+  phoneNumber: "",
+  firstName: "",
+  lastName: "",
+  birthdate: "",
+  addressAs: "",
+  zipCode: "",
 };
 
 const MultiSectionApplication: React.FC = () => {
@@ -67,6 +72,7 @@ const MultiSectionApplication: React.FC = () => {
 
     lines.push("🌀 APPLICATION FOR HYPNOTHERAPY");
     lines.push("");
+
     lines.push("SECTION 1 — Framework & Consent");
     lines.push(
       `Metaphysical framework consent: ${
@@ -76,26 +82,57 @@ const MultiSectionApplication: React.FC = () => {
     lines.push("");
 
     lines.push("SECTION 2 — Support / Boundaries / Self-Image");
-    lines.push(`Q1 — Damaging experience: ${form.q1DamagingExperience}`);
-    lines.push(`Q2 — Before this experience I felt: ${form.q2BeforeSelf}`);
-    lines.push(`Q3 — Now I see myself as: ${form.q3NowSelf}`);
+    lines.push(`Damaging / defining experience: ${form.q1DamagingExperience}`);
+    lines.push(`Before this experience I saw myself as: ${form.q2BeforeSelf}`);
+    lines.push(`Now I tend to see myself as: ${form.q3NowSelf}`);
     lines.push("");
 
-    lines.push("SECTION 4 — History / Finances / Membership Preference");
-    lines.push(`Therapy / mental health history: ${form.therapyHistory}`);
+    lines.push("SECTION 4 — History, Finances, Membership, Readiness");
+    lines.push(`Therapy / support history: ${form.therapyHistory}`);
     lines.push(
-      `Current mental-health supports or diagnoses: ${form.mentalHealthSupports}`
+      `Current mental-health supports / diagnoses: ${form.mentalHealthSupports}`
     );
-    lines.push(`Household income range: ${form.incomeRange}`);
+    lines.push(`Income range: ${form.incomeRange || "Not specified"}`);
     lines.push(
-      `Preferred membership level: ${form.membershipPreference || "Not chosen"}`
+      `Preferred membership: ${
+        form.membershipPreference || "Not specified yet"
+      }`
     );
     lines.push(`Financial / access notes: ${form.financialNotes}`);
     lines.push("");
+    lines.push(`Contact email: ${form.email}`);
+    lines.push(
+      `Why now feels like the right time: ${form.readinessNotes || "(not filled)"}`
+    );
+    lines.push("");
 
-    lines.push("SECTION 5 — Readiness & Contact");
-    lines.push(`Email: ${form.email}`);
-    lines.push(`Readiness notes: ${form.readinessNotes}`);
+    lines.push("SECTION 5 — Practical Demographics");
+    lines.push(
+      `Referred: ${
+        form.referredYesNo === "yes"
+          ? `Yes — ${form.referredBy || "no name given"}`
+          : form.referredYesNo === "no"
+          ? "No"
+          : "Not answered"
+      }`
+    );
+    lines.push(`Phone: ${form.phoneNumber}`);
+    lines.push(`First name: ${form.firstName}`);
+    lines.push(`Last name: ${form.lastName}`);
+    lines.push(`Birthdate: ${form.birthdate}`);
+    lines.push(
+      `How to address: ${
+        form.addressAs === "she/her"
+          ? "She / Her"
+          : form.addressAs === "he/him"
+          ? "He / Him"
+          : form.addressAs === "they"
+          ? "They"
+          : "Not specified"
+      }`
+    );
+    lines.push(`Zip code: ${form.zipCode}`);
+    lines.push("");
 
     const body = lines.join("\n");
     const subject = "Application for Hypnotherapy";
@@ -136,8 +173,8 @@ const MultiSectionApplication: React.FC = () => {
 
         <p>
           Each Self moves through its own states of mind, patterns of behavior,
-          and movements of expression. Exploring and harmonizing these
-          movements is the essence of this work.
+          and movements of expression. Exploring and harmonizing these movements
+          is the essence of this work.
         </p>
 
         <p>
@@ -168,6 +205,7 @@ const MultiSectionApplication: React.FC = () => {
           className="primary-button"
           disabled={!form.metaphysicalConsent}
           onClick={nextSection}
+          type="button"
         >
           Next →
         </button>
@@ -218,10 +256,18 @@ const MultiSectionApplication: React.FC = () => {
       </label>
 
       <div className="button-row">
-        <button className="secondary-button" onClick={prevSection}>
+        <button
+          className="secondary-button"
+          onClick={prevSection}
+          type="button"
+        >
           ← Back
         </button>
-        <button className="primary-button" onClick={nextSection}>
+        <button
+          className="primary-button"
+          onClick={nextSection}
+          type="button"
+        >
           Next →
         </button>
       </div>
@@ -230,18 +276,29 @@ const MultiSectionApplication: React.FC = () => {
 
   const renderSection3 = () => (
     <div className="card">
-      <h2 className="section-title">Section 3 — Three Contradictions Quiz</h2>
+      <h2 className="section-title">Section 3 — The Three Contradictions</h2>
       <p className="section-intro">
-        This quiz maps how Being, Flowing, and Trusting are currently moving
-        together in your system. Answer from how things feel <em>right now</em>,
-        not how you wish they were.
+        This quiz maps how Being, Flowing, and Trusting are moving together in
+        your system right now. Answer from your current reality, not how you
+        wish things were.
       </p>
+
+      {/* Full quiz component */}
       <QuizSection />
+
       <div className="button-row" style={{ marginTop: "1.5rem" }}>
-        <button className="secondary-button" onClick={prevSection}>
+        <button
+          className="secondary-button"
+          onClick={prevSection}
+          type="button"
+        >
           ← Back
         </button>
-        <button className="primary-button" onClick={nextSection}>
+        <button
+          className="primary-button"
+          onClick={nextSection}
+          type="button"
+        >
           Next →
         </button>
       </div>
@@ -301,7 +358,7 @@ const MultiSectionApplication: React.FC = () => {
 
       <fieldset className="field">
         <legend>
-          Membership range that feels most aligned and comfortable right now:
+          Which membership range feels most aligned and comfortable right now?
         </legend>
 
         <label className="radio-row">
@@ -378,11 +435,46 @@ const MultiSectionApplication: React.FC = () => {
         />
       </label>
 
+      <label className="field">
+        <span>Email *</span>
+        <input
+          type="email"
+          value={form.email}
+          onChange={(e) =>
+            setForm((prev) => ({ ...prev, email: e.target.value }))
+          }
+        />
+      </label>
+
+      <label className="field">
+        <span>
+          In your own words, why does <em>now</em> feel like the right time to
+          begin this work?
+        </span>
+        <textarea
+          value={form.readinessNotes}
+          onChange={(e) =>
+            setForm((prev) => ({
+              ...prev,
+              readinessNotes: e.target.value,
+            }))
+          }
+        />
+      </label>
+
       <div className="button-row">
-        <button className="secondary-button" onClick={prevSection}>
+        <button
+          className="secondary-button"
+          onClick={prevSection}
+          type="button"
+        >
           ← Back
         </button>
-        <button className="primary-button" onClick={nextSection}>
+        <button
+          className="primary-button"
+          onClick={nextSection}
+          type="button"
+        >
           Next →
         </button>
       </div>
@@ -390,101 +482,192 @@ const MultiSectionApplication: React.FC = () => {
   );
 
   const renderSection5 = () => (
-  <div className="card">
-    <h2 className="results-title">Section 5 — Practical Demographics</h2>
+    <div className="card">
+      <h2 className="section-title">Section 5 — Practical Demographics</h2>
 
-    {/* Were you referred to me? */}
-    <p className="results-summary">Were you referred to me?</p>
-    <div className="option-row" onClick={() => setForm({ ...form, referredYesNo: "yes" })}>
-      <div className={`radio ${form.referredYesNo === "yes" ? "radio-selected" : ""}`}>
-        {form.referredYesNo === "yes" && <div className="radio-dot" />}
+      <p className="results-summary">Were you referred to me?</p>
+      <div
+        className="option-row"
+        onClick={() => setForm((prev) => ({ ...prev, referredYesNo: "yes" }))}
+      >
+        <div
+          className={`radio ${
+            form.referredYesNo === "yes" ? "radio-selected" : ""
+          }`}
+        >
+          {form.referredYesNo === "yes" && <div className="radio-dot" />}
+        </div>
+        <div className="option-text">Yes</div>
       </div>
-      <div className="option-text">Yes</div>
-    </div>
-
-    <div className="option-row" onClick={() => setForm({ ...form, referredYesNo: "no" })}>
-      <div className={`radio ${form.referredYesNo === "no" ? "radio-selected" : ""}`}>
-        {form.referredYesNo === "no" && <div className="radio-dot" />}
+      <div
+        className="option-row"
+        onClick={() => setForm((prev) => ({ ...prev, referredYesNo: "no" }))}
+      >
+        <div
+          className={`radio ${
+            form.referredYesNo === "no" ? "radio-selected" : ""
+          }`}
+        >
+          {form.referredYesNo === "no" && <div className="radio-dot" />}
+        </div>
+        <div className="option-text">No</div>
       </div>
-      <div className="option-text">No</div>
+
+      {form.referredYesNo === "yes" && (
+        <label className="field">
+          <span>If so, who?</span>
+          <input
+            type="text"
+            value={form.referredBy}
+            onChange={(e) =>
+              setForm((prev) => ({ ...prev, referredBy: e.target.value }))
+            }
+          />
+        </label>
+      )}
+
+      <label className="field" style={{ marginTop: "1.5rem" }}>
+        <span>Phone Number *</span>
+        <input
+          type="text"
+          value={form.phoneNumber}
+          onChange={(e) =>
+            setForm((prev) => ({ ...prev, phoneNumber: e.target.value }))
+          }
+        />
+      </label>
+
+      <label className="field">
+        <span>First Name *</span>
+        <input
+          type="text"
+          value={form.firstName}
+          onChange={(e) =>
+            setForm((prev) => ({ ...prev, firstName: e.target.value }))
+          }
+        />
+      </label>
+
+      <label className="field">
+        <span>Last Name *</span>
+        <input
+          type="text"
+          value={form.lastName}
+          onChange={(e) =>
+            setForm((prev) => ({ ...prev, lastName: e.target.value }))
+          }
+        />
+      </label>
+
+      <label className="field">
+        <span>Birthdate *</span>
+        <input
+          type="text"
+          placeholder="January 7, 2019"
+          value={form.birthdate}
+          onChange={(e) =>
+            setForm((prev) => ({ ...prev, birthdate: e.target.value }))
+          }
+        />
+      </label>
+
+      <p className="results-summary" style={{ marginTop: "1.5rem" }}>
+        How would you like me to address you?
+      </p>
+
+      <div
+        className="option-row"
+        onClick={() => setForm((prev) => ({ ...prev, addressAs: "she/her" }))}
+      >
+        <div
+          className={`radio ${
+            form.addressAs === "she/her" ? "radio-selected" : ""
+          }`}
+        >
+          {form.addressAs === "she/her" && <div className="radio-dot" />}
+        </div>
+        <div className="option-text">She / Her</div>
+      </div>
+
+      <div
+        className="option-row"
+        onClick={() => setForm((prev) => ({ ...prev, addressAs: "he/him" }))}
+      >
+        <div
+          className={`radio ${
+            form.addressAs === "he/him" ? "radio-selected" : ""
+          }`}
+        >
+          {form.addressAs === "he/him" && <div className="radio-dot" />}
+        </div>
+        <div className="option-text">He / Him</div>
+      </div>
+
+      <div
+        className="option-row"
+        onClick={() => setForm((prev) => ({ ...prev, addressAs: "they" }))}
+      >
+        <div
+          className={`radio ${
+            form.addressAs === "they" ? "radio-selected" : ""
+          }`}
+        >
+          {form.addressAs === "they" && <div className="radio-dot" />}
+        </div>
+        <div className="option-text">They</div>
+      </div>
+
+      <label className="field" style={{ marginTop: "1.5rem" }}>
+        <span>Your Zip Code *</span>
+        <input
+          type="text"
+          value={form.zipCode}
+          onChange={(e) =>
+            setForm((prev) => ({ ...prev, zipCode: e.target.value }))
+          }
+        />
+      </label>
+
+      <div className="button-row">
+        <button
+          className="secondary-button"
+          onClick={prevSection}
+          type="button"
+        >
+          ← Back
+        </button>
+        <button
+          className="primary-button"
+          type="button"
+          onClick={handleSubmit}
+        >
+          Submit Application ✉️
+        </button>
+      </div>
     </div>
-
-    {form.referredYesNo === "yes" && (
-      <input
-        type="text"
-        className="input"
-        placeholder="If so, who?"
-        value={form.referredBy}
-        onChange={(e) => setForm({ ...form, referredBy: e.target.value })}
-        style={{ marginTop: "1rem" }}
-      />
-    )}
-
-    {/* Phone */}
-    <p className="results-summary" style={{ marginTop: "1.5rem" }}>Phone Number *</p>
-    <input
-      type="text"
-      className="input"
-      value={form.phoneNumber}
-      placeholder="Phone Number"
-      onChange={(e) => setForm({ ...form, phoneNumber: e.target.value })}
-    />
-
-    {/* First Name */}
-    <p className="results-summary" style={{ marginTop: "1.5rem" }}>First Name *</p>
-    <input
-      type="text"
-      className="input"
-      value={form.firstName}
-      placeholder="First Name"
-      onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-    />
-
-    {/* Last Name */}
-    <p className="results-summary" style={{ marginTop: "1.5rem" }}>Last Name *</p>
-    <input
-      type="text"
-      className="input"
-      value={form.lastName}
-      placeholder="Last Name"
-      onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-    />
-
-    {/* Birthdate */}
-    <p className="results-summary" style={{ marginTop: "1.5rem" }}>Birthdate *</p>
-    <input
-      type="text"
-      className="input"
-      value={form.birthdate}
-      placeholder="January 7, 2019"
-      onChange={(e) => setForm({ ...
+  );
 
   // ---------- MAIN RENDER ----------
 
   return (
     <div className="page">
       <div className="quiz-container">
- <header className="header">
+        {/* Global header shown on all sections */}
+        <header className="header">
           <img
             src="https://i.postimg.cc/fLLWZBrp/egg_portrait.png"
             alt="Jenayalynn Riojas, CCHt"
             className="portrait"
           />
-          <h1 className="title">The Three Contradictions Quiz</h1>
+          <h1 className="title">The Three Contradictions Application</h1>
           <p className="subtitle">
-            For each statement, select the one that feels most true for you
-            right now.
-          </p>
-          <p className="subtitle">
-            There are no wrong answers — each response reflects a pattern of
-            energy within the Self.
+            This process is for individuals ready to do deep inner work using a
+            metaphysical and symbolic framework.
           </p>
           <p className="signature">Jenayalynn</p>
         </header>
-        {/* Simple step indicator */}
-        <p className="section-indicator">
-          Step {section} of 5
-        </p>
+
+        <p className="section-indicator">Step {section} of 5</p>
 
         {section === 1 && renderSection1()}
         {section === 2 && renderSection2()}
