@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-
-import {
-  QUESTIONS,
+import type {
   Trait,
   FlightProfile,
   AnswerRecord,
-  SheetPayload,
+  SheetPayload
+} from "./data";
+
+import {
+  QUESTIONS,
   FLIGHT_PROFILES,
   computeFlightDirection
-} from "./data"; // 🔥 IMPORTANT: adjust this path if your quiz data lives elsewhere
+} from "./data";
 
 const QuizSection: React.FC = () => {
   const [answers, setAnswers] = useState<Record<number, Trait | null>>({});
