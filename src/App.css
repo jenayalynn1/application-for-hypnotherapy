@@ -260,11 +260,63 @@ body,
 }
 
 /* Fix checkbox color for application form */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
 .checkbox-row input[type="checkbox"] {
   accent-color: #8b5e3c;
 }
 
-.section-text p {
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 1.25rem;
+}
+
+.field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.field input,
+.field select,
+.field textarea {
+  padding: 0.6rem 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #e0cda9;
+  background-color: #faf3ea;
+}
+
+.section-title {
+  font-size: 1.5rem;
   margin-bottom: 1rem;
+}
+
+.section-text p {
+  margin-bottom: 0.9rem;
   line-height: 1.5;
+}
+
+.section-indicator {
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.section-intro {
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  color: #4b5563;
+}
+
+.radio-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
