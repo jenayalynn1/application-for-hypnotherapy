@@ -341,4 +341,44 @@ body,
   background-color: #000000;
   color: #f7efe6;
   border-color: #000000;
+  /* ---------- Global colors for the application form ---------- */
+
+/* Make normal text dark on the beige background */
+body,
+.page {
+  color: #111827;
+}
+
+/* Content area text (but NOT the black header/buttons) */
+.section-body,
+.section-body * {
+  color: #111827;
+}
+
+/* Light inputs + selects + textareas */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="number"],
+select,
+textarea {
+  background-color: #fdf7ef;
+  color: #111827;
+  border: 1px solid #e0cda9;
+}
+
+/* Checkboxes / radios: light box, dark check only */
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: #111827;        /* dark mark */
+  background-color: #fdf7ef;    /* no big black squares */
+}
+
+/* Keep active section tab readable on black */
+.section-tab--active {
+  background-color: #000000;
+  color: #f5efe7 !important;
+}
+
 }
