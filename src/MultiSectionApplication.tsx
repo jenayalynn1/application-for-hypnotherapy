@@ -404,22 +404,45 @@ const MultiSectionApplication: React.FC = () => {
     };
 
     return (
-      <div className="section-tabs">
-        {(Object.keys(labels) as unknown as SectionNumber[]).map((s) => (
-          <button
-            key={s}
-            type="button"
-            className={
-              "section-tab" + (s === section ? " section-tab--active" : "")
-            }
-            onClick={() => setSection(s)}
-          >
-            {labels[s]}
-          </button>
-        ))}
-      </div>
-    );
-  };
+     {/* Section tabs styled like the Inhale/Exhale buttons */}
+<div className="section-tabs">
+  <button
+    type="button"
+    className={
+      "section-tab" + (section === 1 ? " section-tab--active" : "")
+    }
+    onClick={() => setSection(1)}
+  >
+    Section 1: Framework & Consent
+  </button>
+
+  <button
+    type="button"
+    className={
+      "section-tab" + (section === 2 ? " section-tab--active" : "")
+    }
+    onClick={() => setSection(2)}
+  >
+    Section 2: Support & Boundaries
+  </button>
+
+  <button
+    type="button"
+    className={
+      "section-tab" + (section === 3 ? " section-tab--active" : "")
+    }
+    onClick={() => setSection(3)}
+  >
+    The 🐦‍🔥 Flight Direction Quiz 🔥
+  </button>
+
+  <button
+    type="button"
+    className={
+      "section-tab" + (section === 4 ? " section-tab--active" : "")
+    }
+    onClick={() => setSection(4)}
+  >
 
   const renderSection1 = () => (
     <div className="card">
