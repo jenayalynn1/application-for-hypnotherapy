@@ -230,12 +230,61 @@ const MultiSectionApplication: React.FC = () => {
   // ─────────────────────────────
 
   const renderSection1 = () => (
-    <div className="card">
-      <h2 className="results-title">Section 1 — Framework & Consent</h2>
-      <p className="results-summary" style={{ marginBottom: "1.25rem" }}>
-        This process is for individuals ready to do deep inner work using a
-        metaphysical and symbolic framework.
+  <div className="card">
+    <h2 className="section-title">
+      Section 1 — Framework & Consent
+    </h2>
+
+    <div className="section-text">
+      <p>
+        🜂 <strong>My Framework and Approach</strong>
       </p>
+
+      <p>
+        When entering deep inner work, it’s important to understand the beliefs and education that guide your hypnotherapist.
+        I received my foundational training through the Hypnosis Motivation Institute (HMI) and have since integrated that
+        education into my own metaphysical framework, which strongly informs my practice.
+      </p>
+
+      <p>
+        I operate from the understanding that each individual Self is composed of Consciousness, Subconscious, and Manifestation —
+        all expressions of I Am, the pure creative awareness that gives rise to your reality. We access I Am through the divine
+        inspiration of The Breath. Together, these five aspects form <strong>The Five-Fold Self</strong>.
+      </p>
+
+      <p>
+        Each Self moves through its own states of mind, patterns of behavior, and movements of expression.
+        Exploring and harmonizing these movements is the essence of this work.
+      </p>
+
+      <p>
+        This is an existential framework — a lens through which to experience healing and self-realization. I am accepting of all
+        spiritual and religious backgrounds and offer a neutral space for anyone seeking growth in the metaphysical and existential
+        realms of human experience.
+      </p>
+    </div>
+
+    <label className="checkbox-row">
+      <input
+        type="checkbox"
+        checked={form.metaphysicalConsent}
+        onChange={(e) =>
+          setForm((prev) => ({
+            ...prev,
+            metaphysicalConsent: e.target.checked,
+          }))
+        }
+      />
+      <span>Yes, this framework resonates with me.</span>
+    </label>
+
+    <div className="button-row">
+      <button
+        className="primary-button"
+        disabled={!form.metaphysicalConsent}
+        onClick={() => nextSection()}
+      >
+        Next →
 
       <div className="question-block">
         <label className="question-text">
