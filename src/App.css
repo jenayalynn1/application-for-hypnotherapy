@@ -258,3 +258,13 @@ body,
 .app-root * {
   color: #111827;
 }
+
+/* Fix checkbox color for application form */
+.checkbox-row input[type="checkbox"] {
+  accent-color: #8b5e3c;
+}
+
+.section-text p {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
