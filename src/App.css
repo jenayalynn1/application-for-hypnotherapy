@@ -1,384 +1,303 @@
-/* Page + layout */
-.page {
-  min-height: 100vh;
+/* -------------------------------------------------------------
+   0. GLOBAL BRAND VARIABLES
+   (Your exact palette + radii + shadows + typography rules)
+------------------------------------------------------------- */
+
+:root {
+  --soft-ivory-flame: #f6eee4;
+  --phoenix-gold: #e7cba4;
+  --celestial-teal: #4f7c89;
+  --deep-teal: #2c4a54;
+  --driftwood-dark: #3c3a37;
+  --stone-gray: #6e6c68;
+  --misty-blue: #adc6d4;
+  --smoky-moon-gray: #c7c2bb;
+  --copper-flame: #c46a31;
+
+  --shadow-large: 0px 40px 60px -20px rgba(0, 0, 0, 0.1);
+  --shadow-small: 0px 15px 30px rgba(0, 0, 0, 0.08);
+
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
 }
 
-.quiz-container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 2.5rem 1.5rem 3rem;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+/* -------------------------------------------------------------
+   1. GLOBAL RESET + TYPOGRAPHY
+------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-/* Header */
-.header {
-  text-align: center;
-  margin-bottom: 2.5rem;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  letter-spacing: 0.01em; /* +1% breath */
+  line-height: 1.6;       /* 150–170% range */
+  background: var(--soft-ivory-flame);
+  color: var(--stone-gray);
+  -webkit-font-smoothing: antialiased;
 }
 
-.portrait {
-  width: 220px;
-  max-width: 70vw;
-  border-radius: 50%;
-  display: block;
-  margin: 0 auto 1.5rem;
-  object-fit: cover;
+h1, h2, h3, h4 {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--driftwood-dark);
 }
 
-.title {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
-  font-weight: 400;
-}
-
-.subtitle {
-  max-width: 720px;
-  margin: 0.25rem auto;
-  font-size: 1rem;
-  color: #3f3f46;
+.accent-word {
+  font-family: "Cormorant Garamond", serif;
   font-style: italic;
 }
 
-.signature {
-  max-width: 720px;
-  margin: 1.5rem auto 0;
-  font-size: 1.5rem;
-  text-align: right;
+/* -------------------------------------------------------------
+   2. CONTAINER
+------------------------------------------------------------- */
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 2.5rem 1.5rem 3.5rem;
 }
 
-/* Cards */
-.card {
-  background: #ffffff;
-  border: 1px solid #e0cda9;
-  border-radius: 4px;
-  padding: 1.75rem 1.5rem;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+.app-shell {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
 }
+
+/* -------------------------------------------------------------
+   3. CARDS (Your soft ivory flame, warm shadows, rounded edges)
+------------------------------------------------------------- */
+
+.card {
+  background: var(--soft-ivory-flame);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-small);
+  border: 1px solid rgba(110,108,104,0.25);
+  color: var(--stone-gray);
+  margin-top: 1.75rem;
+}
+
+.results-card {
+  background: linear-gradient(
+    135deg,
+    rgba(79,124,137,0.18),
+    rgba(246,238,228,0.96)
+  );
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(231,203,164,0.5);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-small);
+}
+
+/* -------------------------------------------------------------
+   4. TITLES + BODY TEXT
+------------------------------------------------------------- */
+
+.results-title {
+  font-size: 1.6rem;
+  margin-bottom: 0.9rem;
+  color: var(--driftwood-dark);
+}
+
+.results-summary,
+.results-note,
+.subtitle {
+  font-size: 0.98rem;
+  color: var(--stone-gray);
+}
+
+.results-code,
+.results-scores {
+  font-weight: 500;
+  color: var(--driftwood-dark);
+}
+
+/* -------------------------------------------------------------
+   5. FORM ELEMENTS (inputs, textareas)
+------------------------------------------------------------- */
 
 .question-block {
-  margin-bottom: 1.75rem;
+  margin-top: 1.25rem;
 }
 
 .question-text {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--driftwood-dark);
+  margin-bottom: 0.4rem;
+}
+
+.text-input,
+.text-area {
+  width: 100%;
+  background: #fff;
+  border: 1px solid rgba(110,108,104,0.3);
+  border-radius: var(--radius-md);
+  padding: 0.7rem;
   font-size: 1rem;
-  margin-bottom: 0.75rem;
-  line-height: 1.4;
+  font-family: inherit;
+  color: var(--driftwood-dark);
+  transition: all 0.2s ease;
 }
 
-.question-number {
-  color: #8b5e3c;
-  margin-right: 0.35rem;
+.text-area {
+  min-height: 110px;
+  resize: vertical;
 }
 
-/* Options */
+.text-input:focus,
+.text-area:focus {
+  border-color: var(--copper-flame);
+  box-shadow: 0 0 0 2px rgba(196,106,49,0.2);
+}
+
+/* radio + checkbox rows */
+
 .option-row {
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  border: 1px solid #e0cda9;
-  border-radius: 4px;
-  padding: 0.75rem 0.9rem;
-  margin-bottom: 0.5rem;
-  background-color: #faf3ea;
-  cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-  color: #5b4630;
+  align-items: flex-start;
+  gap: 0.45rem;
+  font-size: 0.92rem;
+  color: var(--stone-gray);
+  margin-top: 0.3rem;
 }
 
-.option-row:hover {
-  background-color: #f0e1cc;
+.option-row input[type="radio"],
+.option-row input[type="checkbox"] {
+  margin-top: 0.08rem;
 }
 
-.option-selected {
-  background-color: #000000;
-  color: #f5efe7 !important;
-  border-color: #000000;
-}
+/* -------------------------------------------------------------
+   6. SECTION TABS (top navigation of questionnaire)
+------------------------------------------------------------- */
 
-/* Radio circle */
-.radio {
-  width: 18px;
-  height: 18px;
-  border-radius: 999px;
-  border: 1px solid #6b7280;
+.section-tabs {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
 }
 
-.radio-selected {
-  border-color: #f5efe7;
+.section-tab {
+  flex: 1 1 180px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--phoenix-gold);
+  padding: 0.6rem 1rem;
+  background: var(--deep-teal);
+  color: var(--soft-ivory-flame);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-.radio-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 999px;
-  background-color: #f5efe7;
+.section-tab--active {
+  background: linear-gradient(135deg, var(--celestial-teal), var(--deep-teal));
+  border-color: var(--copper-flame);
+  box-shadow: var(--shadow-small);
 }
 
-.option-text {
-  font-size: 0.98rem;
-  font-weight: 300;
-  color: inherit;
-}
+/* -------------------------------------------------------------
+   7. BUTTONS (Phoenix Gold → Copper Flame gradient)
+------------------------------------------------------------- */
 
-/* Buttons */
 .button-row {
-  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-end;
   margin-top: 1.75rem;
 }
 
 .primary-button,
 .secondary-button {
-  font-size: 1rem;
-  padding: 0.85rem 2.5rem;
-  border-radius: 4px;
-  border: 1px solid #000000;
+  border-radius: var(--radius-pill);
+  padding: 0.8rem 1.6rem;
+  font-size: 0.94rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  border: none;
+  transition: all 0.18s ease-out;
 }
 
+/* Phoenix Gold → Copper Flame */
+
 .primary-button {
-  background-color: #000000;
-  color: #f5efe7;
+  background: linear-gradient(135deg, var(--phoenix-gold), var(--copper-flame));
+  color: var(--driftwood-dark);
+  box-shadow: var(--shadow-large);
 }
 
 .primary-button:hover {
-  background-color: #1f2933;
+  transform: translateY(-1px);
 }
 
+/* Ghost button with teal outline */
+
 .secondary-button {
-  background-color: #000000;
-  color: #f5efe7;
+  background: transparent;
+  color: var(--deep-teal);
+  border: 1px solid var(--deep-teal);
 }
 
 .secondary-button:hover {
-  background-color: #1f2933;
+  background: rgba(0,0,0,0.05);
 }
 
-/* Results */
-.results-card {
-  margin-top: 1rem;
-  text-align: center;
-}
+/* -------------------------------------------------------------
+   8. ERROR MESSAGE
+------------------------------------------------------------- */
 
-.results-title {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.results-code {
-  font-size: 1.25rem;
-  margin-bottom: 0.75rem;
-  font-weight: 600;
-}
-
-.results-summary {
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 0.75rem;
-}
-
-.results-scores {
-  font-size: 0.95rem;
-  margin-bottom: 0.25rem;
-}
-
-.results-note {
-  font-size: 0.8rem;
-  color: #6b7280;
-}
-
-/* Misc */
 .error {
   margin-top: 1rem;
-  text-align: center;
-  padding: 0.75rem 1rem;
-  background-color: #f0e1cc;
-  border: 1px solid #e0cda9;
-  border-radius: 4px;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 89, 89, 0.1);
+  border: 1px solid #ff5959;
+  color: #802020;
+  font-size: 0.9rem;
 }
 
-.footer {
-  margin-top: 2.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #e0cda9;
-  text-align: center;
-  font-size: 0.8rem;
-  line-height: 1.6;
-  color: #4b5563;
-}
+/* -------------------------------------------------------------
+   9. RESULTS LIST
+------------------------------------------------------------- */
 
 .results-list {
-  text-align: left !important;
-  margin-left: 1.25rem;
-  list-style-type: disc;
+  padding-left: 1.2rem;
+  margin-top: 0.4rem;
+  color: var(--stone-gray);
 }
 
-/* Global layout + background */
-html,
-body,
-#root {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100vh;
-  background-color: #f7efe6;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #111827; /* 🔹 global dark text */
-}
+/* -------------------------------------------------------------
+   10. RESPONSIVE
+------------------------------------------------------------- */
 
-/* Outer container for the app */
-.app-root {
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 2rem 1rem;
-}
+@media (max-width: 768px) {
+  #root {
+    padding: 1.8rem 1.1rem 2.5rem;
+  }
 
-/* Portrait alignment */
-.portrait-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-}
+  .card {
+    padding: 1.4rem;
+  }
 
-.portrait-img {
-  width: 220px;
-  height: auto;
-  border-radius: 9999px;
-}
+  .section-tab {
+    flex: 1 1 100%;
+  }
 
-/* Force dark text inside the app */
-.app-root,
-.app-root * {
-  color: #111827;
-}
-
-/* Fix checkbox color for application form */
-.checkbox-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 1.25rem;
-}
-
-.checkbox-row input[type="checkbox"] {
-  accent-color: #8b5e3c;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  margin-top: 1.25rem;
-}
-
-.field textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-
-.field input,
-.field select,
-.field textarea {
-  padding: 0.6rem 0.75rem;
-  border-radius: 4px;
-  border: 1px solid #e0cda9;
-  background-color: #faf3ea;
-}
-
-.section-title {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.section-text p {
-  margin-bottom: 0.9rem;
-  line-height: 1.5;
-}
-
-.section-indicator {
-  margin-bottom: 0.75rem;
-  font-size: 0.9rem;
-  color: #6b7280;
-}
-
-.section-intro {
-  margin-bottom: 1rem;
-  font-size: 0.95rem;
-  color: #4b5563;
-}
-
-.radio-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-.section-tabs {
-  display: flex;
-  gap: 1rem;
-  margin: 2rem 0 1.5rem;
-}
-
-.section-tab {
-  border-radius: 4px;
-  border: 1px solid #d4d4d4;
-  padding: 0.75rem 1.75rem;
-  background-color: #f7efe6;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease,
-    border-color 0.15s ease;
-}
-
-.section-tab--active {
-  background-color: #000000;
-  color: #f7efe6;
-  border-color: #000000;
-  /* ---------- Global colors for the application form ---------- */
-
-/* Make normal text dark on the beige background */
-body,
-.page {
-  color: #111827;
-}
-
-/* Content area text (but NOT the black header/buttons) */
-.section-body,
-.section-body * {
-  color: #111827;
-}
-
-/* Light inputs + selects + textareas */
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="date"],
-input[type="number"],
-select,
-textarea {
-  background-color: #fdf7ef;
-  color: #111827;
-  border: 1px solid #e0cda9;
-}
-
-/* Checkboxes / radios: light box, dark check only */
-input[type="checkbox"],
-input[type="radio"] {
-  accent-color: #111827;        /* dark mark */
-  background-color: #fdf7ef;    /* no big black squares */
-}
-
-/* Keep active section tab readable on black */
-.section-tab--active {
-  background-color: #000000;
-  color: #f5efe7 !important;
-}
-
+  .results-title {
+    font-size: 1.35rem;
+  }
 }
