@@ -307,7 +307,9 @@ const MultiSectionApplication: React.FC = () => {
     lines.push("");
     lines.push("Raw answer records:");
     records.forEach((r, idx) => {
-      lines.push(`${idx + 1}. ${r.question} — [${r.trait}] ${r.answer}`);
+      lines.push(
+        `${idx + 1}. ${r.question} — [${r.trait}] ${r.answer}`
+      );
     });
 
     return lines.join("\n");
@@ -336,7 +338,8 @@ const MultiSectionApplication: React.FC = () => {
       };
     });
 
-    const { code, being, flowing, trusting } = computeFlightDirection(records);
+    const { code, being, flowing, trusting } =
+      computeFlightDirection(records);
     const profile = FLIGHT_PROFILES[code] ?? null;
 
     const adminEmailBody = buildAdminEmailBody(
@@ -391,64 +394,32 @@ const MultiSectionApplication: React.FC = () => {
 
   // ---------- render helpers ----------
 
-  const renderTabs = () => (
-    <>
-      {/* Global header stays above this */}
+  const renderTabs = () => {
+    const labels: Record<SectionNumber, string> = {
+      1: "Section 1: Framework & Consent",
+      2: "Section 2: Support & Boundaries",
+      3: "Section 3: Inner Movements Quiz",
+      4: "Section 4: Readiness & Commitment",
+      5: "Section 5: Personal Details",
+    };
 
-      {/* Section tabs styled like the Inhale / Exhale buttons */}
+    return (
       <div className="section-tabs">
-        <button
-          type="button"
-          className={
-            "section-tab" + (section === 1 ? " section-tab--active" : "")
-          }
-          onClick={() => setSection(1)}
-        >
-          Section 1: Framework & Consent
-        </button>
-
-        <button
-          type="button"
-          className={
-            "section-tab" + (section === 2 ? " section-tab--active" : "")
-          }
-          onClick={() => setSection(2)}
-        >
-          Section 2: Support & Boundaries
-        </button>
-
-        <button
-          type="button"
-          className={
-            "section-tab" + (section === 3 ? " section-tab--active" : "")
-          }
-          onClick={() => setSection(3)}
-        >
-          The 🐦‍🔥 Flight Direction Quiz 🔥
-        </button>
-
-        <button
-          type="button"
-          className={
-            "section-tab" + (section === 4 ? " section-tab--active" : "")
-          }
-          onClick={() => setSection(4)}
-        >
-          Section 4: Readiness & Commitment
-        </button>
-
-        <button
-          type="button"
-          className={
-            "section-tab" + (section === 5 ? " section-tab--active" : "")
-          }
-          onClick={() => setSection(5)}
-        >
-          Section 5: Personal Details
-        </button>
+        {(Object.keys(labels) as unknown as SectionNumber[]).map((s) => (
+          <button
+            key={s}
+            type="button"
+            className={
+              "section-tab" + (s === section ? " section-tab--active" : "")
+            }
+            onClick={() => setSection(s)}
+          >
+            {labels[s]}
+          </button>
+        ))}
       </div>
-    </>
-  );
+    );
+  };
 
   const renderSection1 = () => (
     <div className="card">
@@ -765,36 +736,42 @@ const MultiSectionApplication: React.FC = () => {
         energy within the Self.
       </p>
 
-      {QUESTIONS.map((q, idx) => (
-        <div key={idx} className="question-block">
-          <div className="question-text">
-            <span className="question-number">{idx + 1}.</span> {q.text}
-          </div>
-          <div>
-            {q.options.map((opt, oIdx) => {
-              const selected = quizAnswers[idx] === opt.trait;
-              return (
-                <div
-                  key={oIdx}
-                  className={`option-row ${
-                    selected ? "option-selected" : ""
-                  }`}
-                  onClick={() => handleQuizSelect(idx, opt.trait)}
-                >
+      {QUESTIONS.map((q, idx) => {
+        
+        // This outer loop builds each question block
+        return (
+          <div key={idx} className="question-block">
+            <div className="question-text">
+              <span className="question-number">{idx + 1}.</span> {q.text}
+            </div>
+            <div>
+              {q.options.map((opt, oIdx) => {
+                const selected = quizAnswers[idx] === opt.trait;
+                
+                // This inner loop builds each answer option
+                return (
                   <div
-                    className={`radio ${
-                      selected ? "radio-selected" : ""
+                    key={oIdx}
+                    className={`option-row ${
+                      selected ? "option-selected" : ""
                     }`}
+                    onClick={() => handleQuizSelect(idx, opt.trait)}
                   >
-                    {selected && <div className="radio-dot" />}
+                    <div
+                      className={`radio ${
+                        selected ? "radio-selected" : ""
+                      }`}
+                    >
+                      {selected && <div className="radio-dot" />}
+                    </div>
+                    <div className="option-text">{opt.text}</div>
                   </div>
-                  <div className="option-text">{opt.text}</div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 
